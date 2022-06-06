@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Registration page</title>
+ <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+		html{
+height: 100%;
+}
+
+body {
+			margin:0;
+padding:0;
+min-height:100%;
+            background-image: url(https://images.unsplash.com/photo-1652031020082-09b0c584e721?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1295);
+            
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+.card-outer{
+  display:flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+.card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            width: 70%;
+            float: left;
+            margin-left: 170px;
+            margin-top:150px;
+            align-self: center;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .carrd-body {
+            padding: 12px 18px;
+        }    
+       
+        
+    	
+    </style>
+</head>
+<body>
+<div class="card">
+  <h5 class="card-header">Registration Form</h5>
+  <div class="card-body">
+    
+     <form method="POST" action="/register_user" enctype="multipart/form-data">
+        	
+            <div class="mb-3">
+				  <label class="form-label">Email address</label>
+				  <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required/>
+				   <input type="number" placeholder="Type " id="inputId" name="inputId"/>
+				     <input type="text"  id="sets" name="sets"  style="display:none" />
+			</div>
+			 
+			<div class="mb-3">
+  					<label>Select image to set password</label>
+					<input type="file" name="file" class="form-control" id="file" accept="image/*"  aria-describedby="inputGroupFileAddon04" 
+            							 data-toggle="tooltip" data-placement="top" title="Image of signature" required/>
+			</div>
+          
+ 	     
+            <input type="submit" value="SET PASSWORD"  class="btn btn-primary" />
+            
+            </form>
+  </div>
+</div>
+
+
+
+	
+   <canvas id="myCanvas" width="1000" height="700"  style="border: 1px solid red;margin:0px;padding:0px;"></canvas>
+   
+</div>          
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script>
+        $('.custom-file-input').on('change', function () {
+            let fileName = $(this).val().split('\\').pop();
+            $(this).next('.custom-file-input').addClass("selected").html(fileName);
+            
+        });
+        
+       
+       
+    </script>
+    
+     <script>
+     var boll=false;
+ 
+     showimage();
+     function Upload() {
+         var fileUpload = document.getElementById("file");//Get reference of FileUpload.
+         var divs=document.getElementById("myCanvas");
+         var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.png|.gif|.jpeg|jfif)$"); //Check whether the file is valid Image.
+         if (regex.test(fileUpload.value.toLowerCase())) 
+         {
+      
+             if (typeof (fileUpload.files) != "undefined") {//Check whether HTML5 is supported.
+                 var reader = new FileReader();//Initiate the FileReader object.
+                 reader.readAsDataURL(fileUpload.files[0]); //Read the contents of Image File.
+                 reader.onload = function (e) {
+                     var image = new Image();//Initiate the JavaScript Image object.
+                     image.src = e.target.result; //Set the Base64 string return from FileReader as source.
+                     image.onload = function () {
+                         var height = this.height;
+                         var width = this.width;
+                         if (height > 500 || width > 500) {
+                             alert("Height and Width must not exceed 1000px.");
+                             
+                             
+                         }
+                         else{
+                             alert("Height and width matched");
+                             showimage();
+                         }
+                         
+                      
+                     };
+      
+                 }
+             } else {
+                 alert("This browser does not support HTML5.");
+                 // booleanValue=false;
+                 // fileUpload.value='';
+             }
+         } else {
+             alert("Please select a valid Image file.");
+             
+             boll=false;
+             // return false;
+             // booleanValue=false;
+         }
+     }    
+    
+ 
+    
+    function showimage(){
+    	
+        var myCanvas;
+        var myContext;
+        let imgInput = document.getElementById('file');
+            console.log(imgInput);
+             imgInput.addEventListener('change', function (e) {
+                 if(boll)
+                 {
+                     imgInput.value='';
+                 }
+                 else if (e.target.files) {
+                     
+                     let imageFile = e.target.files[0]; //here we get the image file
+                     var reader = new FileReader();
+                     reader.readAsDataURL(imageFile);
+                     reader.onloadend = function (e) {
+                    		let count = document.getElementById("inputId").value;
+                    	 //document.getElementById("displayimage").style.display = "block";
+                    	 alert("Mark " + count + " point of interest to set password ")
+                         var myImage = new Image(); // Creates image object
+                         myImage.src = e.target.result; // Assigns converted image to image object
+                         myImage.onload = function (ev) {
+                             myCanvas = document.getElementById("myCanvas"); // Creates a canvas object
+                             myContext = myCanvas.getContext("2d"); // Creates a contect object
+                             myCanvas.width = myImage.width; // Assigns image's width to canvas
+                             myCanvas.height = myImage.height; // Assigns image's height to canvas
+                             myContext.drawImage(myImage, 0, 0); // Draws the image on canvas
+                             let imgData = myCanvas.toDataURL("image/jpeg", 0.75); // Assigns image base64 string in jpeg format to a variable
+                             initCanvas(myContext);
+                         }
+                     }
+                 }
+             });
+    }   
+
+         
+     
+         function initCanvas(e) {
+        	 let set=document.getElementById("sets");
+        	  var i=0;
+        		let count = document.getElementById("inputId").value;
+        	  	console.log(count);
+			    var co=",";
+        	 var c = document.getElementById('myCanvas').getContext('2d');
+             var rect = myCanvas.getBoundingClientRect();// var img = document.getElementById("imageInput");
+             e.canvas.addEventListener('click', function (event) {
+                 if (i < count) { 
+                	 console.log("entering");
+                     let x=event.clientX - rect.left - myCanvas.clientLeft;
+                     let y=event.clientY - rect.top - myCanvas.clientTop;
+                         e.fillStyle = "purple";
+                         e.fillRect (x, y, 15, 15);
+                         
+                         co+=Math.round(x)+"," +Math.round(y)+",";
+                         i++;
+				          
+                     
+                 }    
+                 set.value=co;
+                 console.log(set);
+             });     
+             
+             
+        }
+            
+    </script>
+    
+</body>
+</html>

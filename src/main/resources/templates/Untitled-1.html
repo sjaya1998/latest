@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>Registration</title>
+    <style>
+        body {
+            background-image: url(https://images.unsplash.com/photo-1652031020082-09b0c584e721?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1295);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        h2,
+        label {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2>Registration Page</h2>
+        <br>
+        <form method="POST" action="/upload" enctype="multipart/form-data">
+        	<div>
+        	<label>Email</label>
+            <input type="email" name="email" data-toggle="tooltip" id="email" data-placement="top" title="User email" required />
+            </div>
+            <div>
+            	<label>Image</label>
+            	<div class="custom-file">
+            		<input type="file" name="file" class="custom-file-input" id="file" accept="image/*"  aria-describedby="inputGroupFileAddon04" 
+            		 data-toggle="tooltip" data-placement="top" title="Image of signature" />
+            		 <label class="custom-file-label text-truncate" for="inputGroupFile04">Choose file</label>
+            	</div>
+            	<button id="submit" class="btn btn-primary mx-2" data-toggle="modal"  onclick="Upload()">Next</button>
+            	
+            	
+            </div>
+            <input type="submit" value="Upload" />
+            </form>
+        <!-- <div>
+            <label>Email</label>
+            <input type="email" class="form-control" name="email" id="" data-toggle="tooltip" data-placement="top"
+                >
+        </div>
+        <br>
+        <div>
+            <label>Image</label>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" name="image" id="inputGroupFile04"
+                    aria-describedby="inputGroupFileAddon04" accept="image/*"  data-toggle="tooltip"
+                    data-placement="top" title="Image of signature"  >
+                <label class="custom-file-label text-truncate" for="inputGroupFile04">Choose file</label>
+            </div>
+
+        </div><br>
+        <input type="submit" value="save values"/> -->
+        
+        <br>
+        <div>
+            <button class="btn btn-danger"  id="btnDelete">Delete</button>
+            <!-- <button id="submit" class="btn btn-primary mx-2" datSa-toggle="modal" data-target="#exampleModalCenter" >Next</button> -->
+            
+        </div>
+    </div>
+
+        <canvas id="myCanvas" width="1000" height="700"  style="border: 1px solid red;margin:0;padding:0;"></canvas>
+      
+   
+    <!-- <div class="modal fade bd-example-modal-xl" id="exampleModalCenter"  role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+       
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Click any 3 interest points</h5>
+                    <canvas id="myCanvas" width="1000" height="700"  style="border: 1px solid red;margin:0;padding:0;"></canvas>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+               
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" data-toggle="modal" data-target="#exampleModalCenter1"
+                        class="btn btn-primary">Set Password</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- <div class="modal fade bd-example-modal-lg" id="exampleModalCenter1" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Click any 3 interest points</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-auto">
+                    <canvas id="myCanvas" style="max-height: 500px; max-width: 700px;"></canvas>
+                    <img id="imageInput" style="max-height: 500px; max-width: 700px;" src="" alt="">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-toggle="modal"
+                    data-target="#exampleModalCenter" data-dismiss="modal" class="btn btn-secondary">Back</button>
+                    <button type="button" class="btn btn-primary">Finish</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- Preview -->
+    <script>
+
+        // function loadFile(event) {
+        //     if (event.target.files.length > 0) {
+        //         var src = URL.createObjectURL(event.target.files[0]);
+        //         document.getElementById('output').src = src;
+        //         // document.getElementById('output1').style.backgroundImage = src;
+        //     }
+        // };
+    </script>
+
+    <!-- <script>
+            var myCanvas;
+      var myContext;
+            let imgInput = document.getElementById('image');
+            imgInput.addEventListener('change', function (e) {
+                if (e.target.files) {
+                    let imageFile = e.target.files[0]; //here we get the image file
+                    var reader = new FileReader();
+                    reader.readAsDataURL(imageFile);
+                    reader.onloadend = function (e) {
+                        console.log(">>>>>>>>>Entering>>>>>>>");
+                        var myImage = new Image(); // Creates image object
+                        myImage.src = e.target.result; // Assigns converted image to image object
+                        myImage.onload = function (ev) {
+                            myCanvas = document.getElementById("myCanvas"); // Creates a canvas object
+                            myContext = myCanvas.getContext("2d"); // Creates a contect object
+                            myCanvas.width = myImage.width; // Assigns image's width to canvas
+                            myCanvas.height = myImage.height; // Assigns image's height to canvas
+                            myContext.drawImage(myImage, 0, 0); // Draws the image on canvas
+                            let imgData = myCanvas.toDataURL("image/jpeg", 0.75); // Assigns image base64 string in jpeg format to a variable
+                            initCanvas(myContext);
+                        }
+                    }
+                }
+            });
+
+       
+
+
+
+        // Selecting 3 points 
+        var count = 0;
+        function initCanvas(e) {
+            console.log(">>>>>>>>>Entering>>>>>>>");
+            // document.body.style.backgroundColor = "pink";
+            var c = document.getElementById('myCanvas').getContext('2d');
+            // var img = document.getElementById("imageInput");
+            var rect = myCanvas.getBoundingClientRect();
+            e.canvas.addEventListener('click', function (event) {
+                if (count < 5) { 
+                    // var posx = (e.clientX-rect.left)/(rect.right - rect.left)*myCanvas.width;
+                    // var posy = (e.clientY-rect.top)/(rect.bottom-rect-rect.top)*myCanvas.height;
+                    let x=event.clientX - rect.left - myCanvas.clientLeft;
+                    let y=event.clientY - rect.top - myCanvas.clientTop;
+                        e.fillStyle = "#000000";
+                        e.fillRect (x, y, 30, 30);
+                   
+                    console.log("Coordinate x: " + x +"Coordinate y: " + y);
+                    
+                    count++;
+                    console.log(">>>>>>>>>Entering>>>>>>>");
+                    
+                }
+            });
+        }
+    </script> -->
+
+     <script>
+           function btnDelete(){
+            var image_file=document.getElementById('image');
+            var can_id=document.getElementById('myCanvas');
+            image_file.value='';
+            can_id.value='';
+           }
+    </script>
+
+    <!-- Bootstrap script -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
+    <script>
+        $('.custom-file-input').on('change', function () {
+            let fileName = $(this).val().split('\\').pop();
+            $(this).next('.custom-file-label').addClass("selected").html(fileName);
+        });
+    </script>
+    <script>
+        showimage();
+    function Upload() {
+        var fileUpload = document.getElementById("file");//Get reference of FileUpload.
+        var divs=document.getElementById("myCanvas");
+        var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.png|.gif|.jpeg|jfif)$"); //Check whether the file is valid Image.
+        if (regex.test(fileUpload.value.toLowerCase())) 
+        {
+     
+            if (typeof (fileUpload.files) != "undefined") {//Check whether HTML5 is supported.
+                var reader = new FileReader();//Initiate the FileReader object.
+                reader.readAsDataURL(fileUpload.files[0]); //Read the contents of Image File.
+                reader.onload = function (e) {
+                    var image = new Image();//Initiate the JavaScript Image object.
+                    image.src = e.target.result; //Set the Base64 string return from FileReader as source.
+                    image.onload = function () {
+                        var height = this.height;
+                        var width = this.width;
+                        if (height > 500 || width > 500) {
+                            alert("Height and Width must not exceed 1000px.");
+                            
+                            
+                        }
+                        else{
+                            alert("Height and width matched");
+                            showimage();
+                        }
+                        
+                     
+                    };
+     
+                }
+            } else {
+                alert("This browser does not support HTML5.");
+                // booleanValue=false;
+                // fileUpload.value='';
+            }
+        } else {
+            alert("Please select a valid Image file.");
+            
+            boll=false;
+            // return false;
+            // booleanValue=false;
+        }
+    }    
+    
+    
+    function showimage(){
+        var myCanvas;
+        var myContext;
+        console.log(">>>>>>>>>Entering>>>>>>>");
+        let imgInput = document.getElementById('file');
+            console.log(imgInput);
+             imgInput.addEventListener('change', function (e) {
+                 if(boll)
+                 {
+                     imgInput.value='';
+                 }
+                 else if (e.target.files) {
+                     
+                     let imageFile = e.target.files[0]; //here we get the image file
+                     var reader = new FileReader();
+                     reader.readAsDataURL(imageFile);
+                     reader.onloadend = function (e) {
+                        
+                         var myImage = new Image(); // Creates image object
+                         myImage.src = e.target.result; // Assigns converted image to image object
+                         myImage.onload = function (ev) {
+                             myCanvas = document.getElementById("myCanvas"); // Creates a canvas object
+                             myContext = myCanvas.getContext("2d"); // Creates a contect object
+                             myCanvas.width = myImage.width; // Assigns image's width to canvas
+                             myCanvas.height = myImage.height; // Assigns image's height to canvas
+                             myContext.drawImage(myImage, 0, 0); // Draws the image on canvas
+                             let imgData = myCanvas.toDataURL("image/jpeg", 0.75); // Assigns image base64 string in jpeg format to a variable
+                             initCanvas(myContext);
+                         }
+                     }
+                 }
+             });
+    }   
+         // Selecting 3 points 
+         var count = 0;
+         function initCanvas(e) {
+             var c = document.getElementById('myCanvas').getContext('2d');
+             var rect = myCanvas.getBoundingClientRect();// var img = document.getElementById("imageInput");
+             e.canvas.addEventListener('click', function (event) {
+                 if (count < 6) { 
+                     // var posx = (e.clientX-rect.left)/(rect.right - rect.left)*myCanvas.width;
+                     // var posy = (e.clientY-rect.top)/(rect.bottom-rect-rect.top)*myCanvas.height;
+                     let x=event.clientX - rect.left - myCanvas.clientLeft;
+                     let y=event.clientY - rect.top - myCanvas.clientTop;
+                         e.fillStyle = "#000000";
+                         e.fillRect (x, y, 6, 6);
+                    
+                     console.log("Coordinate x: " + x +"Coordinate y: " + y);
+                     
+                     count++;
+                     console.log(">>>>>>>>>Entering>>>>>>>");
+                     
+                 }
+             });
+             
+         }
+
+    
+           
+    </script>
+</body>
+
+</html>
+
+

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+ <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+ <!--  	<link th:href="@{/css/profile.css}" rel="stylesheet" />
+ 	<script type="text/javascript" th:src="@{/js/profile.js}" /> -->
+<title>Dashboard</title>
+<style>
+body {
+    margin: 0;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+    background-color: #fff;
+}
+	.container
+	{
+
+	height:100vh;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	background-color:#eee
+	}
+	.card
+	{
+	width:350px;
+	height:470px;
+	background-color:#fff;
+	box-shadow:0px 15px 30px rgba(0,0,0,0.1);
+	border-radius:10px;overflow:hidden
+	}
+	.card .info
+	{
+	padding:15px;
+	display:flex;
+	justify-content:space-between;
+	border-bottom:1px solid #e1dede;
+	background-color:#e5e5e5
+	}
+	.card .info button{
+	height:30px;
+	width:80px;
+	border:none;
+	color:#fff;
+	border-radius:4px;
+	background-color:#000;
+	cursor:pointer;
+	text-transform:uppercase}
+	.card .forms{
+	padding:15px
+	}
+	.card .inputs
+	{
+	display:flex;
+	flex-direction:column;
+	margin-bottom:10px
+	}
+	.card .inputs span{
+	font-size:12px
+	}
+	.card .inputs input{
+	height:40px;
+	padding:0px 10px;
+	font-size:17px;
+	box-shadow:none;
+	outline:none
+	}
+	.card .inputs input[type="text"][readonly]{border: 2px solid rgba(0,0,0,0)}
+      /* CSS */
+
+.button-40 {
+padding:150px;
+	margin-top:300px;
+	margin-left:700px;
+  background-color: #111827;
+  border: 1px solid transparent;
+  border-radius: .75rem;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  flex: 0 0 auto;
+  font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.5rem;
+  padding: .75rem 1.2rem;
+  text-align: center;
+  text-decoration: none #6B7280 solid;
+  text-decoration-thickness: auto;
+  transition-duration: .2s;
+  transition-property: background-color,border-color,color,fill,stroke;
+  transition-timing-function: cubic-bezier(.4, 0, 0.2, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: auto;
+}
+
+.button-40:hover {
+  background-color: #374151;
+}
+
+.button-40:focus {
+  box-shadow: none;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+.below{
+  background-color:red;
+}
+
+
+@media (min-width: 768px) {
+  .button-40 {
+    padding: .75rem 1.5rem;
+  }
+}       
+</style>
+</head>
+<body>
+  <!-- Nav tabs -->
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link" id="profile-tab" data-toggle="tab"  href="#profile" role="tab" aria-controls="profile" aria-selected="false" >Profile</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="change_password-tab" data-toggle="tab" href="#change_password" role="tab" aria-controls="change_password" aria-selected="false">Change Password</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link"  id="upload-tab" href="#upload" data-toggle="tab" role="tab" aria-controls="upload" aria-selected="false">File Upload</a>
+  </li>
+   <li class="nav-item">
+    <a class="nav-link"  id="download-tab" href="#download" data-toggle="tab" role="tab" aria-controls="download" aria-selected="false">File List</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link"  id="logout-tab" href="#logout" data-toggle="tab" role="tab" aria-controls="settings" aria-selected="false">Logout</a>
+  </li>
+</ul>
+
+<!-- Tab panes -->
+<div class="below">
+<div class="tab-content">
+  <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
+
+
+  <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+  <div class="container"> 
+  <div class="card"> 
+  <div class="info"> 
+  <form id="profile_form" name="profile_form" method="post" action="/dashboard/update_profile">
+  <span>Edit form</span> 
+  <input type="submit"  value="update" id="savebutton" >
+  </div> 
+  <div class="forms"> 
+  <div class="inputs"> 
+  <span>First Name</span> 
+  <input type="text" name="fname" id="fname"  th:value="${fname}"> 
+  </div> 
+  <div class="inputs"> 
+  <span>Last Name</span> 
+  <input type="text" name="lname" id="lanme"  th:value="${lname}"> 
+  </div> 
+  <div class="inputs"> 
+  <span>Email</span> 
+  <input type="text" name="email" id="email"  th:value="${email}"> 
+  </div> 
+  <div class="inputs"> 
+  <span>UserName</span> 
+  <input type="text" name="uname" id="uname"  th:value="${uname}"> 
+  </div> 
+  <div class="inputs"> 
+  <span>Country</span> 
+  <input type="text" name="country" id="country"  th:value="${country}"> 
+ 
+  </div> 
+  </form>
+  </div> 
+  </div>
+</div>
+  </div> 
+  <div class="tab-pane" id="change_password" role="tabpanel" aria-labelledby="messages-tab">
+  		<form method="POST" action="/dashboard/update_user" enctype="multipart/form-data">
+        	
+            <div class="mb-3">
+				  <label class="form-label">Email address</label>
+				  <input type="email" name="email" id="email" th:value="${email}" readonly/><br/>
+				  <label>Point of interest</label>
+				   <input type="number" placeholder="Type " id="inputId" name="inputId"/>
+				     <input type="text"  id="sets" name="sets"  style="display:none" />
+			</div>
+			 
+			<div class="mb-3">
+  					<label>Select image to set new password</label>
+					<input type="file" name="file" class="form-control" id="file" accept="image/*"  aria-describedby="inputGroupFileAddon04" 
+            							 data-toggle="tooltip" data-placement="top" title="Image of signature" required/>
+			</div>
+          
+ 	     
+            <input type="submit" value="UPDATE PASSWORD"  class="btn btn-primary" />
+            
+            </form>
+            <canvas id="myCanvas" width="1000" height="700"  style="border: 1px solid red;margin:0px;padding:0px;"></canvas>
+  </div>
+   <div class="tab-pane" id="upload" role="tabpanel" aria-labelledby="upload-tab">
+ 
+             <form method="POST" action="/upload" enctype="multipart/form-data">
+    <input type="email" name="email" id="email" th:value="${email}" /><br/>
+    File to upload:<input type="file" name="files" id="files" multiple/>
+    <span style="color:red" th:if="${message!= null}" class="error" th:value="${message}"></span>
+    <input type="submit" value="Upload" />
+</form>
+        </div>
+      
+       <div class="tab-pane" id="download" role="tabpanel" aria-labelledby="download-tab">
+ 
+             <form method="POST" action="/dashboard/fetch_file" enctype="multipart/form-data">
+    <input type="email" name="email" id="email" th:value="${email}" /><br/>
+     <input type="submit" value="view_files" />
+  
+</form>
+<table class="table table-bordered table-striped">
+			
+				<thead>
+					<tr>
+						<th>Fileid</th>
+						<th>Filename</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="file: ${files}">
+						<td th:text="${file.id}" />
+						<td th:text="${file.fname}" />
+						
+					</tr>
+				</tbody>
+				
+			</table>
+        </div>
+      
+  <div class="tab-pane" id="logout" role="tabpanel" aria-labelledby="settings-tab">
+  
+  <button class="button-40"  onclick="location.href='/'" role="button">LOGOUT</button>
+  </div>
+  </div>
+</div>
+
+<script>
+$('#myTab a').on('click', function (e) {
+	  e.preventDefault()
+	  $(this).tab('show')
+	})
+
+</script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+         <script>
+     var boll=false;
+ 
+     showimage();
+     function Upload() {
+         var fileUpload = document.getElementById("file");//Get reference of FileUpload.
+         var divs=document.getElementById("myCanvas");
+         var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.png|.gif|.jpeg|jfif)$"); //Check whether the file is valid Image.
+         if (regex.test(fileUpload.value.toLowerCase())) 
+         {
+      
+             if (typeof (fileUpload.files) != "undefined") {//Check whether HTML5 is supported.
+                 var reader = new FileReader();//Initiate the FileReader object.
+                 reader.readAsDataURL(fileUpload.files[0]); //Read the contents of Image File.
+                 reader.onload = function (e) {
+                     var image = new Image();//Initiate the JavaScript Image object.
+                     image.src = e.target.result; //Set the Base64 string return from FileReader as source.
+                     image.onload = function () {
+                         var height = this.height;
+                         var width = this.width;
+                         if (height > 500 || width > 500) {
+                             alert("Height and Width must not exceed 1000px.");
+                             
+                             
+                         }
+                         else{
+                             alert("Height and width matched");
+                             showimage();
+                         }
+                         
+                      
+                     };
+      
+                 }
+             } else {
+                 alert("This browser does not support HTML5.");
+                 // booleanValue=false;
+                 // fileUpload.value='';
+             }
+         } else {
+             alert("Please select a valid Image file.");
+             
+             boll=false;
+             // return false;
+             // booleanValue=false;
+         }
+     }    
+    
+ 
+    
+     function showimage(){
+     	
+         var myCanvas;
+         var myContext;
+         let imgInput = document.getElementById('file');
+             console.log(imgInput);
+              imgInput.addEventListener('change', function (e) {
+                  if(boll)
+                  {
+                      imgInput.value='';
+                  }
+                  else if (e.target.files) {
+                      
+                      let imageFile = e.target.files[0]; //here we get the image file
+                      var reader = new FileReader();
+                      reader.readAsDataURL(imageFile);
+                      reader.onloadend = function (e) {
+                     		let count = document.getElementById("inputId").value;
+                     	 //document.getElementById("displayimage").style.display = "block";
+                     	 alert("Mark " + count + " point of interest to set password ")
+                          var myImage = new Image(); // Creates image object
+                          myImage.src = e.target.result; // Assigns converted image to image object
+                          myImage.onload = function (ev) {
+                              myCanvas = document.getElementById("myCanvas"); // Creates a canvas object
+                              myContext = myCanvas.getContext("2d"); // Creates a contect object
+                              myCanvas.width = 300; // Assigns image's width to canvas
+                              myCanvas.height = 300; // Assigns image's height to canvas
+                              
+                              myContext.drawImage(myImage, 0, 0,300,300); // Draws the image on canvas
+                              let imgData = myCanvas.toDataURL("image/jpeg", 0.75); // Assigns image base64 string in jpeg format to a variable
+                              initCanvas(myContext);
+                          }
+                      }
+                  }
+              });
+     }    
+
+         
+     
+         function initCanvas(e) {
+        	 let set=document.getElementById("sets");
+        	  var i=0;
+        		let count = document.getElementById("inputId").value;
+        	  	console.log(count);
+			    var co=",";
+        	 var c = document.getElementById('myCanvas').getContext('2d');
+             var rect = myCanvas.getBoundingClientRect();// var img = document.getElementById("imageInput");
+             e.canvas.addEventListener('click', function (event) {
+                 if (i < count) { 
+                	 console.log("entering");
+                     let x=event.clientX - rect.left - myCanvas.clientLeft;
+                     let y=event.clientY - rect.top - myCanvas.clientTop;
+                         e.fillStyle = "purple";
+                         e.fillRect (x, y, 15, 15);
+                         
+                         co+=Math.round(x)+"," +Math.round(y)+",";
+                         i++;
+				          
+                     
+                 }    
+                 set.value=co;
+                 console.log(set);
+             });     
+             
+             
+        }
+            
+    </script>
+    
+   
+  
+
+</body>
+</html> 
+
+<!-- HTML !-->
+
+
+
+
